@@ -1,0 +1,20 @@
+{
+    "recommends": ["houdini"],
+    "env": [
+        {
+            "USD_MATERIAL_COLLECTIONS": "$HOUDINI_PACKAGE_PATH/.."
+        },
+        {
+            "PYTHONPATH": {
+                "value": "$USD_MATERIAL_COLLECTIONS",
+                "method": "append"
+            }
+        },
+        {
+            "HOUDINI_TOOLBAR_PATH": {
+                "value": "$USD_MATERIAL_COLLECTIONS/toolbar",
+                "method": "append"
+            }
+        }
+    ]
+}

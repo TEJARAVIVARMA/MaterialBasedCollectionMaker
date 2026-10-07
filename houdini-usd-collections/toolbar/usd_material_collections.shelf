@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shelfDocument>
+  <!-- Shelf definition for USD Material Collections -->
+  <toolshelf name="usd_material_collections_shelf" label="USD Collections">
+    <memberTool name="create_usd_collections"/>
+    <memberTool name="sync_material_library"/>
+  </toolshelf>
+
+  <tool name="create_usd_collections" label="Auto Collections" icon="SOP_collection">
+    <helpText><![CDATA[Inspects USD stage meshes, extracts unique materials, and authors USD Collections with collision-free wildcards.]]></helpText>
+    <script scriptType="python"><![CDATA[
+import usd_material_collections
+try:
+    node = usd_material_collections.run(mode="single")
+    if node:
+        hou.ui.displayMessage(f"Successfully generated collections on:\n{node.path()}", title="USD Collections")
+except Exception as e:
+    hou.ui.displayMessage(f"Error: {e}", severity=hou.severityType.Error, title="USD Collections")
+]]></script>
+  </tool>
+
+  <tool name="sync_material_library" label="Sync MatLib" icon="NETWORKS_material">
+    <helpText><![CDATA[Automatically populates assignment rows on the selected or default Material Library LOP with %<collection_name>.]]></helpText>
+    <script scriptType="python"><![CDATA[
+import usd_material_collections
+try:
+    node = usd_material_collections.run(mode="single", auto_populate_matlibrary=True)
+    if node:
+        hou.ui.displayMessage("Collections authored and Material Library assignments populated!", title="Sync MatLib")
+except Exception as e:
+    hou.ui.displayMessage(f"Error: {e}", severity=hou.severityType.Error, title="Sync MatLib")
+]]></script>
+  </tool>
+</shelfDocument>
